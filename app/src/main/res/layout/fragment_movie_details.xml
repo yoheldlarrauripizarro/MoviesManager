@@ -53,7 +53,7 @@
         android:max="10"
         android:numStars="5"
         android:rating="0.0"
-        android:stepSize="2.0"
+        android:stepSize="0.5"
         />
     <Spinner
         android:id="@+id/genderSp"
@@ -62,5 +62,14 @@
         app:layout_constraintTop_toBottomOf="@id/ratingRb"
         app:layout_constraintStart_toStartOf="parent"
         />
+    <Button
+        android:id="@+id/saveBt"
+        android:layout_width="0dp"
+        android:layout_margin="10sp"
+        android:layout_height="wrap_content"
+        android:text="Guardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genderSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

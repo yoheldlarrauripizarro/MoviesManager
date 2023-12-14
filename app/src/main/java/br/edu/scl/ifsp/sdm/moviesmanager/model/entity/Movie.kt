@@ -20,5 +20,6 @@ data class Movie (
         const val NO_RATING = 0
         const val INVALID_TIME = -1
         const val MOVIE_NOT_VIEWED = 0
+        const val MOVIE_VIEWED = 1
     }
 }

@@ -3,6 +3,8 @@ package br.edu.scl.ifsp.sdm.moviesmanager.controller
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.room.Room
 import br.edu.scl.ifsp.sdm.moviesmanager.model.database.MovieListDatabase
 import br.edu.scl.ifsp.sdm.moviesmanager.model.entity.Movie
@@ -32,6 +34,9 @@ class MovieViewModel(application: Application):ViewModel() {
     }
 
     companion object{
-
+        val MovieViewModelFactory = object: ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
+                MovieViewModel(checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])) as T
+        }
     }
 }
