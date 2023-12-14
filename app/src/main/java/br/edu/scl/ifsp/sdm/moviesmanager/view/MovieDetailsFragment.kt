@@ -35,9 +35,8 @@ import br.edu.scl.ifsp.sdm.moviesmanager.view.MainFragment.Companion.MOVIE_FRAGM
 
 class MovieDetailsFragment : Fragment() {
     private lateinit var ftb: FragmentMovieDetailsBinding
-    lateinit var movieViewModel: MovieViewModel
     private val navigationArgs: MovieDetailsFragmentArgs by navArgs()
-    private val genderSpinner = arrayOf("Romace","Aventura","Terror","Comedia","Ação","Suspense")
+    private val genderList: MutableList<String> = arrayOf("Romace","Aventura","Terror","Comedia","Ação","Suspense").toMutableList()
     var genreSelected=""
 
     override fun onCreateView(
@@ -48,16 +47,14 @@ class MovieDetailsFragment : Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Movie Details"
 
         ftb = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        ftb.genderSp.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,genderSpinner)
+        ftb.genderSp.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,genderList)
 
         ftb.genderSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                genreSelected = genderSpinner[position]
+                genreSelected = genderList[position]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Handle case where nothing is selected
-                // In this example, you can set a default value or do nothing
-                genreSelected = "" // Set a default value or leave it empty as per your requirement
+                genreSelected = ""
             }
         }
         val receivedMovieDetails = navigationArgs.movie
@@ -68,7 +65,7 @@ class MovieDetailsFragment : Fragment() {
                 timeMinDurationEt.setText(movie.timeMinDuration.toString())
                 watchedCb.isChecked = movie.viewed == MOVIE_VIEWED
                 ratingRb.rating = movie.rating.toFloat()
-                genderSp.setSelection(genderSpinner.indexOf(movie.gender))
+                genderSp.setSelection(genderList.indexOf(movie.gender))
                 navigationArgs.editMovie.also { editMovie ->
                     nameEt.isEnabled = editMovie
                 }
@@ -93,6 +90,20 @@ class MovieDetailsFragment : Fragment() {
                 findNavController().navigateUp()
             }
         }
+
+        ftb.addGenreBt.setOnClickListener {
+            val newGenre = ftb.newGenreEt.text.toString()
+            if (newGenre.isNotEmpty() && !genderList.contains(newGenre)) {
+                genderList.add(newGenre)
+                updateGenderSpinner()
+            }
+            ftb.newGenreEt.text.clear()
+        }
+
         return ftb.root
+    }
+
+    private fun updateGenderSpinner() {
+        ftb.genderSp.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, genderList)
     }
 }

@@ -60,6 +60,22 @@
         app:layout_constraintTop_toBottomOf="@id/ratingRb"
         app:layout_constraintStart_toStartOf="parent"
         android:entries="@array/default_values"/>
+    <EditText
+        android:id="@+id/newGenreEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/genderSp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="Novo Gênero"/>
+
+    <Button
+        android:id="@+id/addGenreBt"
+        android:layout_height="wrap_content"
+        android:text="Adicionar Gênero"
+        android:layout_width="165sp"
+        app:layout_constraintStart_toEndOf="@id/newGenreEt"
+        app:layout_constraintTop_toBottomOf="@id/genderSp"
+        app:layout_constraintEnd_toEndOf="parent"/>
     <Button
         android:id="@+id/saveBt"
         android:layout_width="0dp"
@@ -68,6 +84,6 @@
         android:text="Guardar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/genderSp" />
+        app:layout_constraintTop_toBottomOf="@id/addGenreBt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
