@@ -43,8 +43,6 @@ class MovieDetailsFragment : Fragment() {
                 //gender
                 navigationArgs.editMovie.also { editMovie ->
                     nameEt.isEnabled = editMovie
-                    watchedCb.isEnabled = editMovie
-                    saveBt.visibility = if (editMovie) VISIBLE else GONE
                 }
             }
 
@@ -58,7 +56,7 @@ class MovieDetailsFragment : Fragment() {
                             studioEt.text.toString(),
                             timeMinDurationEt.text.toString().toInt(),
                             if (watchedCb.isChecked) MOVIE_VIEWED else MOVIE_NOT_VIEWED,
-                            ratingRb.numStars.toInt(),
+                            (ratingRb.rating*2).toInt(),
                             //implementar depois spinner
                             "Scary"
                         )
