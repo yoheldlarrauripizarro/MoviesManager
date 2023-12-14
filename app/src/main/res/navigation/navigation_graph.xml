@@ -17,5 +17,17 @@
         android:id="@+id/movieDetailsFragment"
         android:name="br.edu.scl.ifsp.sdm.moviesmanager.view.MovieDetailsFragment"
         android:label="fragment_movie_details"
-        tools:layout="@layout/fragment_movie_details" />
+        tools:layout="@layout/fragment_movie_details">
+        <argument
+            android:name="movie"
+            app:argType="br.edu.scl.ifsp.sdm.moviesmanager.model.entity.Movie"
+            android:defaultValue="@null"
+            app:nullable="true"
+            />
+        <argument
+            android:name="editMovie"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+
+    </fragment>
 </navigation>

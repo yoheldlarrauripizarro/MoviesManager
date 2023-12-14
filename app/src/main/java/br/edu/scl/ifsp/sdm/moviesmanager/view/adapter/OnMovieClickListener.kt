@@ -1,7 +1,9 @@
 package br.edu.scl.ifsp.sdm.moviesmanager.view.adapter
 
-import android.icu.text.Transliterator.Position
 
 interface OnMovieClickListener {
-
+    fun onMovieClick(position: Int)
+    fun onRemoveMovieMenuItemClick(position: Int)
+    fun onEditMovieMeuItemClick(position: Int)
+    fun onDoneCheckBoxClick(position: Int, checked: Boolean)
 }
