@@ -39,6 +39,20 @@ class MovieViewModel(application: Application):ViewModel() {
         }
     }
 
+    fun orderMoviesByName(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val movies = movieDAOImpl.retrieveMoviesOrderByName()
+            movieMld.postValue(movies)
+        }
+    }
+
+    fun orderMoviesByRating(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val movies = movieDAOImpl.retrieveMoviesOrderByRating()
+            movieMld.postValue(movies)
+        }
+    }
+
     fun removeMovie(movie: Movie){
         CoroutineScope(Dispatchers.IO).launch {
             movieDAOImpl.deleteMovie(movie)
@@ -46,7 +60,7 @@ class MovieViewModel(application: Application):ViewModel() {
     }
 
     companion object{
-        val MovieViewModelFactory = object: ViewModelProvider.Factory {
+        val movieViewModelFactory = object: ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
                 MovieViewModel(checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])) as T
         }

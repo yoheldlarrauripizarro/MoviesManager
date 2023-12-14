@@ -15,9 +15,9 @@ interface MovieDAO {
     fun createMovie(movie:Movie)
     @Query("SELECT * FROM $MOVIE_TABLE")
     fun retrieveMovies():List<Movie>
-    @Query("SELECT * FROM $MOVIE_TABLE ORDER BY RATING")
+    @Query("SELECT * FROM $MOVIE_TABLE ORDER BY RATING DESC")
     fun retrieveMoviesOrderByRating():List<Movie>
-    @Query("SELECT * FROM $MOVIE_TABLE ORDER BY NAME")
+    @Query("SELECT * FROM $MOVIE_TABLE ORDER BY NAME DESC")
     fun retrieveMoviesOrderByName():List<Movie>
     @Update
     fun updateMovie(movie: Movie)

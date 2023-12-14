@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="default_values">
+        <item>Romance</item>
+        <item>Aventura</item>
+        <item>Terror</item>
+        <item>Ação</item>
+        <item>Comedia</item>
+        <item>Suspense</item>
+    </string-array>
+</resources>

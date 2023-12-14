@@ -6,12 +6,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.MainFragment">
 
+    <TextView
+        android:id="@+id/orderTv"
+        android:layout_width="180sp"
+        android:layout_height="50sp"
+        android:textSize="30sp"
+        android:text="Ordenar por:"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
+    <Button
+        android:id="@+id/orderNameBt"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/orderTv"
+        />
+
+    <Button
+        android:id="@+id/orderRatingBt"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:text="Nota"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orderNameBt"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/moviesRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0sp"
+        app:layout_constraintTop_toBottomOf="@id/orderTv"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
     
@@ -25,5 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="Add Movie"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

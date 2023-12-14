@@ -2,15 +2,29 @@ package br.edu.scl.ifsp.sdm.moviesmanager.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import br.edu.scl.ifsp.sdm.moviesmanager.R
+import br.edu.scl.ifsp.sdm.moviesmanager.controller.MovieViewModel
 import br.edu.scl.ifsp.sdm.moviesmanager.databinding.FragmentMovieDetailsBinding
 import br.edu.scl.ifsp.sdm.moviesmanager.model.entity.Movie
 import br.edu.scl.ifsp.sdm.moviesmanager.model.entity.Movie.Companion.MOVIE_NOT_VIEWED
@@ -21,7 +35,10 @@ import br.edu.scl.ifsp.sdm.moviesmanager.view.MainFragment.Companion.MOVIE_FRAGM
 
 class MovieDetailsFragment : Fragment() {
     private lateinit var ftb: FragmentMovieDetailsBinding
+    lateinit var movieViewModel: MovieViewModel
     private val navigationArgs: MovieDetailsFragmentArgs by navArgs()
+    private val genderSpinner = arrayOf("Romace","Aventura","Terror","Comedia","Ação","Suspense")
+    var genreSelected=""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +48,18 @@ class MovieDetailsFragment : Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Movie Details"
 
         ftb = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        ftb.genderSp.adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item,genderSpinner)
 
+        ftb.genderSp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                genreSelected = genderSpinner[position]
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Handle case where nothing is selected
+                // In this example, you can set a default value or do nothing
+                genreSelected = "" // Set a default value or leave it empty as per your requirement
+            }
+        }
         val receivedMovieDetails = navigationArgs.movie
         receivedMovieDetails?.also { movie ->
             with(ftb) {
@@ -40,13 +68,14 @@ class MovieDetailsFragment : Fragment() {
                 timeMinDurationEt.setText(movie.timeMinDuration.toString())
                 watchedCb.isChecked = movie.viewed == MOVIE_VIEWED
                 ratingRb.rating = movie.rating.toFloat()
-                //gender
+                genderSp.setSelection(genderSpinner.indexOf(movie.gender))
                 navigationArgs.editMovie.also { editMovie ->
                     nameEt.isEnabled = editMovie
                 }
             }
 
         }
+
         ftb.run {
             saveBt.setOnClickListener {
                 setFragmentResult(MOVIE_FRAGMENT_REQUEST_KEY, Bundle().apply {
@@ -57,8 +86,7 @@ class MovieDetailsFragment : Fragment() {
                             timeMinDurationEt.text.toString().toInt(),
                             if (watchedCb.isChecked) MOVIE_VIEWED else MOVIE_NOT_VIEWED,
                             (ratingRb.rating*2).toInt(),
-                            //implementar depois spinner
-                            "Scary"
+                            genreSelected
                         )
                     )
                 })

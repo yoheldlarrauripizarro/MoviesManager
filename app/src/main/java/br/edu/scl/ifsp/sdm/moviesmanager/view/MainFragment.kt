@@ -4,16 +4,26 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.edu.scl.ifsp.sdm.moviesmanager.R
 import br.edu.scl.ifsp.sdm.moviesmanager.controller.MovieViewModel
 import br.edu.scl.ifsp.sdm.moviesmanager.databinding.FragmentMainBinding
 import br.edu.scl.ifsp.sdm.moviesmanager.model.entity.Movie
@@ -25,7 +35,7 @@ import br.edu.scl.ifsp.sdm.moviesmanager.view.adapter.OnMovieClickListener
 
 class MainFragment : Fragment(), OnMovieClickListener {
     private lateinit var fmb: FragmentMainBinding
-    private val movieList: MutableList<Movie> = mutableListOf()
+    private var movieList: MutableList<Movie> = mutableListOf()
     private val moviesAdapter: MovieAdapter by lazy {
         MovieAdapter(movieList, this)
     }
@@ -39,7 +49,7 @@ class MainFragment : Fragment(), OnMovieClickListener {
 
     // ViewModel
     private val movieViewModel: MovieViewModel by viewModels {
-        MovieViewModel.MovieViewModelFactory
+        MovieViewModel.movieViewModelFactory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +101,10 @@ class MainFragment : Fragment(), OnMovieClickListener {
     ): View {
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Movie List"
 
+
         fmb = FragmentMainBinding.inflate(inflater, container, false).apply {
+
+
             moviesRv.layoutManager = LinearLayoutManager(context)
             moviesRv.adapter = moviesAdapter
 
@@ -99,6 +112,14 @@ class MainFragment : Fragment(), OnMovieClickListener {
                 navController.navigate(
                     MainFragmentDirections.actionMainFragmentToMovieDetailsFragment(null, editMovie = false)
                 )
+            }
+
+            orderNameBt.setOnClickListener {
+                movieViewModel.orderMoviesByName()
+            }
+
+            orderRatingBt.setOnClickListener {
+                movieViewModel.orderMoviesByRating()
             }
         }
 
@@ -120,6 +141,7 @@ class MainFragment : Fragment(), OnMovieClickListener {
             movieViewModel.editMovie(this)
         }
     }
+
     private fun navigateToMovieFragment(position: Int, editMovie: Boolean) {
         movieList[position].also {
             navController.navigate(

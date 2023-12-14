@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ratingRb"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        android:entries="@array/default_values"/>
     <Button
         android:id="@+id/saveBt"
         android:layout_width="0dp"
