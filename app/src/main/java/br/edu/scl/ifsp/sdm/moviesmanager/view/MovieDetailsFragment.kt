@@ -1,4 +1,4 @@
-package br.edu.scl.ifsp.sdm.moviesmanager
+package br.edu.scl.ifsp.sdm.moviesmanager.view
 
 import androidx.fragment.app.Fragment
 

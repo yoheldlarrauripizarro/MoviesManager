@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="br.edu.scl.ifsp.sdm.moviesmanager.MainFragment"
+        android:name="br.edu.scl.ifsp.sdm.moviesmanager.view.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="br.edu.scl.ifsp.sdm.moviesmanager.MovieDetailsFragment"
+        android:name="br.edu.scl.ifsp.sdm.moviesmanager.view.MovieDetailsFragment"
         android:label="fragment_movie_details"
         tools:layout="@layout/fragment_movie_details" />
 </navigation>
