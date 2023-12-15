@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:autofillHints="Nome"
+        android:hint="Nome"
         android:inputType="text"
         />
     <EditText
@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameEt"
-        android:autofillHints="Estudio"
+        android:hint="Estúdio"
         android:inputType="text"
         />
     <EditText
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/studioEt"
-        android:autofillHints="Tempo de Duração"
+        android:hint="Tempo de Duração(min)"
         android:inputType="number"
         />
     <CheckBox

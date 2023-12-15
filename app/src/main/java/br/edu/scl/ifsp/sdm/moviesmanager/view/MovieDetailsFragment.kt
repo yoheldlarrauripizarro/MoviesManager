@@ -64,7 +64,7 @@ class MovieDetailsFragment : Fragment() {
                 studioEt.setText(movie.studio)
                 timeMinDurationEt.setText(movie.timeMinDuration.toString())
                 watchedCb.isChecked = movie.viewed == MOVIE_VIEWED
-                ratingRb.rating = movie.rating.toFloat()
+                ratingRb.rating = movie.rating.toFloat()/2
                 genderSp.setSelection(genderList.indexOf(movie.gender))
                 navigationArgs.editMovie.also { editMovie ->
                     nameEt.isEnabled = editMovie
